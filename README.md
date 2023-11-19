@@ -1,3 +1,5 @@
+Interested in following along with module development? Join the [Discord server](https://discord.gg/QAG8eWABGT). 
+
 # Retroactive Advantage D&D5e
 
 This module allows a user to re-roll a d20 roll from the output chat card to change its advantage status. It does not affect any other module's logic based on the original roll.
