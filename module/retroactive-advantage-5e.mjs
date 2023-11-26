@@ -190,7 +190,7 @@ class RetroAdvantage5e {
       const messageContent = html.querySelector('.message-content');
 
       const div = document.createElement("DIV");
-      div.innerHTML = await renderTemplate("modules/retroactive-advantage-5e/templates/retro-buttons.hbs", {
+      div.innerHTML = await renderTemplate("modules/retroactive-advantage-5e/module/retro-buttons.hbs", {
         dis: advantageMode === DISADVANTAGE,
         norm: advantageMode === NORMAL,
         adv: advantageMode === ADVANTAGE
