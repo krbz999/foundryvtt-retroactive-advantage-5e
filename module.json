@@ -20,9 +20,10 @@
     }
   ],
   "esmodules": ["./module/retroactive-advantage-5e.mjs"],
-  "styles": ["./module/retroactive-advantage-5e.css"],
+  "styles": ["./module/retro-adv.css"],
   "relationships": {"systems": [{"id": "dnd5e", "compatibility": {"minimum": "3.0.0"}}]},
-  "compatibility": {"minimum": 11, "maximum": 11, "verified": 11},
+  "compatibility": {"minimum": "11.315", "maximum": 11, "verified": 11},
+  "flags": {"hotReload": {"paths": ["module/retro-adv.css"], "extensions": ["css"]}},
   "url": "https://github.com/krbz999/foundryvtt-retroactive-advantage-5e",
   "license": "https://github.com/krbz999/foundryvtt-retroactive-advantage-5e/raw/main/LICENSE",
   "manifest": "https://github.com/krbz999/foundryvtt-retroactive-advantage-5e/releases/latest/download/module.json",

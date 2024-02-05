@@ -127,7 +127,7 @@ class RetroAdvantage5e {
       const {DISADVANTAGE, NORMAL, ADVANTAGE} = CONFIG.Dice.D20Roll.ADV_MODE;
       const chatMessage = game.messages.get(messageId);
 
-      if (!messageId || !action || !chatMessage) throw new Error('Missing Information');
+      if (!action || !chatMessage) throw new Error('Missing Information');
 
       const [roll] = chatMessage.rolls;
 
@@ -139,7 +139,7 @@ class RetroAdvantage5e {
         userId: chatMessage.user,
         whisper: chatMessage.whisper,
         blind: chatMessage.blind,
-        speaker: chatMessage.speaker,
+        speaker: chatMessage.speaker
       };
 
       switch (action) {
@@ -157,50 +157,46 @@ class RetroAdvantage5e {
         }
       }
 
-      const newMessageData = await newD20Roll.toMessage({}, {create: false});
-      // remove fields we definitely don't want to update
-      delete newMessageData.timestamp;
-      delete newMessageData.user;
-      delete newMessageData.whisper;
-      delete newMessageData.speaker;
+      let update = await newD20Roll.toMessage({}, {create: false});
+      [
+        "blind", "timestamp", "user", "whisper", "speaker",
+        "emote", "flags", "sound", "type", "_id"
+      ].forEach(k => delete update[k]);
+      update = foundry.utils.mergeObject(chatMessage.toJSON(), update);
 
-      const messageUpdate = foundry.utils.mergeObject(chatMessage.toJSON(), newMessageData);
-
-      return chatMessage.update(messageUpdate);
+      return chatMessage.update(update);
     } catch (err) {
       console.error('A problem occurred with Retroactive Advantage 5e:', err);
     }
   }
 
+  /** Initialize module. */
   static init() {
     console.log(`${RetroAdvantage5e.MODULE_NAME} | Initializing ${RetroAdvantage5e.MODULE_TITLE}`);
 
     /**
      * Add buttons and set up listeners.
-     * @param {ChatMessage} message     The message being rendered.
-     * @param {HTMLElement} html        The element of the message.
+     * @param {ChatMessage5e} message     The message being rendered.
+     * @param {HTMLElement} html          The element of the message.
      */
-    Hooks.on('renderChatMessage', async (chatMessage, [html]) => {
-      if (!(chatMessage.isAuthor || chatMessage.isOwner) || !chatMessage.isRoll) return;
-      const [roll] = chatMessage.rolls;
+    Hooks.on("dnd5e.renderChatMessage", async (message, html) => {
+      if (!(message.isAuthor || message.isOwner) || !message.isRoll) return;
+      const [roll] = message.rolls;
       if (!(roll instanceof CONFIG.Dice.D20Roll)) return;
-      const {DISADVANTAGE, NORMAL, ADVANTAGE} = CONFIG.Dice.D20Roll.ADV_MODE;
       const advantageMode = roll?.options?.advantageMode;
-      const diceElement = html.querySelector('.dice-roll');
-      const messageContent = html.querySelector('.message-content');
 
       const div = document.createElement("DIV");
       div.innerHTML = await renderTemplate("modules/retroactive-advantage-5e/module/retro-buttons.hbs", {
-        dis: advantageMode === DISADVANTAGE,
-        norm: advantageMode === NORMAL,
-        adv: advantageMode === ADVANTAGE
+        dis: advantageMode === CONFIG.Dice.D20Roll.ADV_MODE.DISADVANTAGE,
+        norm: advantageMode === CONFIG.Dice.D20Roll.ADV_MODE.NORMAL,
+        adv: advantageMode === CONFIG.Dice.D20Roll.ADV_MODE.ADVANTAGE
       });
 
       div.querySelectorAll("[data-retro-action]").forEach(n => {
         n.addEventListener("click", RetroAdvantage5e._onClickRetroButton.bind(RetroAdvantage5e));
       });
 
-      messageContent.insertBefore(div.firstElementChild, diceElement);
+      html.querySelector(".dnd5e2.chat-card").append(div.firstElementChild);
     });
   }
 
