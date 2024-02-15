@@ -6,7 +6,7 @@
 
   & button {
     flex: 1;
-    font-size: 0.63rem;
+    font-size: 9px;
     height: 1.3rem;
 
     &:disabled {
@@ -14,4 +14,8 @@
       color: white;
     }
   }
+}
+
+.message-content > .retro-adv {
+  margin-bottom: 0.375rem;
 }

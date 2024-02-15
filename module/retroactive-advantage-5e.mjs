@@ -196,7 +196,11 @@ class RetroAdvantage5e {
         n.addEventListener("click", RetroAdvantage5e._onClickRetroButton.bind(RetroAdvantage5e));
       });
 
-      html.querySelector(".dnd5e2.chat-card").append(div.firstElementChild);
+      const cc = html.querySelector(".dnd5e2.chat-card");
+      if (cc) return cc.append(div.firstElementChild);
+
+      const dr = html.querySelector(".dice-roll");
+      if (dr) return dr.before(div.firstElementChild);
     });
   }
 
