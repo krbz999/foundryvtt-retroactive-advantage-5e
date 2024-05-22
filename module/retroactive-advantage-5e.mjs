@@ -83,10 +83,10 @@ class RetroAdvantage5e {
       term.active = true; // all terms start as active
       delete term.discarded; // no terms start as discarded
       delete term.indexThrow; // wtf is indexThrow
-    })
+    });
 
     // handle new terms based on the roll modifiers
-    d20Term._evaluateModifiers();
+    await d20Term._evaluateModifiers();
 
     // reconstruct the formula after adjusting the terms
     newD20Roll._formula = newD20Roll.constructor.getFormula(newD20Roll.terms);
