@@ -58,7 +58,7 @@ class RetroAdvantage5e {
         // if this d20Term doesn't already have more than 1 rolled value, add a new one
         if (d20Term.number === 1) {
           d20Term.number = 2;
-          d20Term.roll();
+          await d20Term.roll();
         }
         break;
       }
@@ -69,7 +69,7 @@ class RetroAdvantage5e {
         // if this d20Term doesn't already have more than 1 rolled value, add a new one
         if (d20Term.number === 1) {
           d20Term.number = 2;
-          d20Term.roll();
+          await d20Term.roll();
         }
         break;
       }
