@@ -2,6 +2,8 @@ class RetroAdvantage5e {
   static MODULE_NAME = "retroactive-advantage-5e";
   static MODULE_TITLE = "Retroactive Advantage DnD5e";
 
+  /* -------------------------------------------------- */
+
   /**
    * Handles creating a new D20Roll instance with the updated roll method and totals based on a given one
    * @param {D20Roll} d20Roll               The original instance.
@@ -97,7 +99,7 @@ class RetroAdvantage5e {
     // After evaluating modifiers again, Create a Fake Roll result and roll for dice so nice to roll the new dice.
     // We have to do this after modifiers because of stuff like halfling luck which might spawn more dice.
     if (game.modules.get('dice-so-nice')?.active && d20Term.results.length > originalResultsLength) {
-      const fakeD20Roll = Roll.fromTerms([new Die({...d20Term})]);
+      const fakeD20Roll = Roll.fromTerms([new foundry.dice.terms.Die({...d20Term, faces: 20})]);
 
       // we are being extra and only rolling the new dice
       fakeD20Roll.terms[0].results = fakeD20Roll.terms[0].results.filter((foo, index) => index > 0);
@@ -116,6 +118,8 @@ class RetroAdvantage5e {
 
     return newD20Roll;
   }
+
+  /* -------------------------------------------------- */
 
   /**
    * Handles our button clicks from the chat log
@@ -136,7 +140,7 @@ class RetroAdvantage5e {
       let newD20Roll;
 
       const messageOptions = {
-        userId: chatMessage.user,
+        userId: chatMessage.author,
         whisper: chatMessage.whisper,
         blind: chatMessage.blind,
         speaker: chatMessage.speaker
@@ -169,6 +173,8 @@ class RetroAdvantage5e {
       console.error('A problem occurred with Retroactive Advantage 5e:', err);
     }
   }
+
+  /* -------------------------------------------------- */
 
   /** Initialize module. */
   static init() {
@@ -204,6 +210,8 @@ class RetroAdvantage5e {
     });
   }
 
+  /* -------------------------------------------------- */
+
   /**
    * Handle clicking a retro button.
    * @param {PointerEvent} event      The initiating click event.
@@ -214,5 +222,7 @@ class RetroAdvantage5e {
     this._handleChatButton(action, messageId);
   }
 }
+
+/* -------------------------------------------------- */
 
 Hooks.on("init", RetroAdvantage5e.init);
