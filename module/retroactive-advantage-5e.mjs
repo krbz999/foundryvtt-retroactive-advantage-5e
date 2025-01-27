@@ -164,7 +164,7 @@ class RetroAdvantage5e {
       let update = await newD20Roll.toMessage({}, {create: false});
       [
         "blind", "timestamp", "user", "whisper", "speaker",
-        "emote", "flags", "sound", "type", "_id"
+        "emote", "flags", "flavor", "sound", "type", "_id"
       ].forEach(k => delete update[k]);
       update = foundry.utils.mergeObject(chatMessage.toJSON(), update);
 
