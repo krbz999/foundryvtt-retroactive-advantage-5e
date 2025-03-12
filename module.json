@@ -19,11 +19,36 @@
       "patreon": "https://patreon.com/zhell"
     }
   ],
-  "esmodules": ["./module/retroactive-advantage-5e.mjs"],
-  "styles": ["./module/retro-adv.css"],
-  "relationships": {"systems": [{"id": "dnd5e", "compatibility": {"minimum": "4.2.2"}}]},
-  "compatibility": {"minimum": 12},
-  "flags": {"hotReload": {"paths": ["module/retro-adv.css"], "extensions": ["css"]}},
+  "esmodules": [
+    "./module/retroactive-advantage-5e.mjs"
+  ],
+  "styles": [
+    "./module/retro-adv.css"
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "compatibility": {
+          "minimum": "4.2.2"
+        }
+      }
+    ]
+  },
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  },
+  "flags": {
+    "hotReload": {
+      "paths": [
+        "module/retro-adv.css"
+      ],
+      "extensions": [
+        "css"
+      ]
+    }
+  },
   "url": "https://github.com/krbz999/foundryvtt-retroactive-advantage-5e",
   "license": "https://github.com/krbz999/foundryvtt-retroactive-advantage-5e/raw/main/LICENSE",
   "manifest": "https://github.com/krbz999/foundryvtt-retroactive-advantage-5e/releases/latest/download/module.json",
